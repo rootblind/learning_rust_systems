@@ -77,3 +77,87 @@ impl Config {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const VALID_CONFIG: &str = "\
+server_name=localhost
+port=8080
+max_connections=100
+debug=true";
+
+    #[test]
+    fn parses_valid_config() {
+        let config = Config::from_str(VALID_CONFIG).unwrap();
+
+        assert_eq!(config.server_name, "localhost");
+        assert_eq!(config.port, 8080);
+        assert_eq!(config.max_connections, 100);
+        assert!(config.debug);
+    }
+
+    #[test]
+    fn parses_config_with_debug_disabled() {
+        let input = "\
+server_name=localhost
+port=8080
+max_connections=100
+debug=false";
+
+        let config = Config::from_str(input).unwrap();
+
+        assert!(!config.debug);
+    }
+
+    #[test]
+    fn ignores_empty_lines() {
+        let input = "\
+server_name=localhost
+
+port=8080
+
+max_connections=100
+debug=true
+";
+
+        let config = Config::from_str(input).unwrap();
+
+        assert_eq!(config.server_name, "localhost");
+        assert_eq!(config.port, 8080);
+    }
+
+    #[test]
+    fn rejects_invalid_port() {
+        let input = "\
+server_name=localhost
+port=invalid
+max_connections=100
+debug=true";
+
+        assert!(Config::from_str(input).is_err());
+    }
+
+    #[test]
+    fn rejects_invalid_max_connections() {
+        let input = "\
+server_name=localhost
+port=8080
+max_connections=invalid
+debug=true";
+
+        assert!(Config::from_str(input).is_err());
+    }
+
+    #[test]
+    #[should_panic(expected = "No server_name provided.")]
+    fn rejects_missing_server_name() {
+        let input = "\
+port=8080
+max_connections=100
+debug=true";
+
+        let _ = Config::from_str(input);
+    }
+}

@@ -4,7 +4,7 @@ fn collection_generator() -> Vec<i32> {
     let mut rng = rand::rng();
     let size = rng.random_range(1..=100);
     let mut vec = vec![size];
-    for i in 0..size {
+    for _i in 0..size {
         vec.push(rng.random_range(-1000..=1000));
     }
 
