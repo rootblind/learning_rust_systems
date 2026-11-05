@@ -1,0 +1,13 @@
+[workspace]
+
+resolver = "3"
+
+members = ["calculator", "config_parser",
+    "fizzbuzz", "foo", 
+    "number_statistics", "small_inventory", "string_ownership", 
+    "string_rev_palindrome", "task_manager",
+]
+
+[workspace.dependencies]
+rand = "0.9"
+clap = { version = "4.0", features = ["derive"] }
