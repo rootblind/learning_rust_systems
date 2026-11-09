@@ -32,6 +32,10 @@ impl TaskManager {
         self.memory.retrieve_mut(id)
     }
 
+    pub fn container(&self) -> &StorageBackend<u32, Task> {
+        &self.memory
+    }
+
     pub fn complete_task(&mut self, id: u32) -> Result<&Task, &str> {
         let result = self.get_task_mut(id);
         if let Some(task) = result {

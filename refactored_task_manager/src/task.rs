@@ -62,6 +62,14 @@ impl Task {
         self.priority = priority;
     }
 
+    pub fn get_status(&self) -> &TaskStatus {
+        &self.status
+    }
+
+    pub fn get_priority(&self) -> &Priority {
+        &self.priority
+    }
+
     pub fn print(&self) {
         println!(
             "ID: {} | Description: {} | Status: {} | Priority: {}",
