@@ -4,10 +4,12 @@ resolver = "3"
 
 members = ["calculator", "config_parser",
     "fizzbuzz", "foo", "generic_data_container", 
-    "number_statistics", "refactored_number_statistics", "refactored_task_manager", "small_inventory", "string_ownership", 
+    "number_statistics", "refactored_number_statistics", "refactored_task_manager", "serialized_task_manager", "small_inventory", "string_ownership", 
     "string_rev_palindrome", "task_manager",
 ]
 
 [workspace.dependencies]
 rand = "0.9"
 clap = { version = "4.0", features = ["derive"] }
+serde = { version = "1.0.229", features = ["derive"]}
+serde_json = "1.0.154"
